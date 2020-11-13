@@ -69,6 +69,36 @@ class Dom {
     }
     return this
   }
+
+  closest(selector) {
+    return $(this.$el.closest(selector)) || null
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  /**
+   * Геттер для получения данных
+   * @returns {DOMStringMap}
+   */
+  get data() {
+    return this.$el.dataset
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  /**
+   * Задание css стилей элементу
+   * @param styles
+   */
+  css(styles = {}) {
+    Object
+        .keys(styles)
+        .forEach((key) => this.$el.style[key] = styles[key])
+  }
 }
 
 /**

@@ -3,21 +3,31 @@ const CODES = {
   Z: 90,
 }
 
-function toCell(_, __) {
-  return `<div class="cell" contenteditable></div>`
+function toCell(_, col) {
+  return `<div class="cell" contenteditable data-col="${col}"></div>`
 }
 
-function toColumn(col) {
+function toColumn(col, index) {
   return `
-    <div class="column">${col}</div>
+    <div class="column" data-type="resizable" data-col="${index}">
+        ${col}
+        <div class="col-resize" data-resize="col"></div>                   
+    </div>    
   `
 }
 
 function createRow(rowNum = 0, content = '') {
+  const resize = rowNum > 0
+      ? '<div class="row-resize" data-resize="row"></div>'
+      : ''
+
   return `
-    <div class="row">
-      <div class="row-info">${rowNum > 0 ? rowNum.toString() : ''}</div>    
-      <div class="row-data">${content}</div>
+    <div class="row" data-type="resizable" data-col="${rowNum}">
+        <div class="row-info">
+            ${rowNum > 0 ? rowNum.toString() : ''}
+            ${resize}
+        </div>
+        <div class="row-data">${content}</div>
     </div>`
 }
 
